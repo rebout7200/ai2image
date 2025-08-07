@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linux.Do 用户画像分析器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#5D5CDE',
+              'bg-light': '#F9FAFB',
+              'bg-dark': '#111827',
+              'card-light': '#FFFFFF',
+              'card-dark': '#1F2937',
+              'border-light': '#E5E7EB',
+              'border-dark': '#374151',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .fade-in-card {
+        animation: fadeIn 0.5s ease-out forwards;
+      }
+      .gauge-bg {
+        fill: none;
+        stroke: #e5e7eb;
+      }
+      .dark .gauge-bg {
+        stroke: #374151;
+      }
+      .gauge-fg {
+        fill: none;
+        stroke: #5D5CDE;
+        stroke-linecap: round;
+        transform-origin: 50% 50%;
+        transition: stroke-dashoffset 0.5s ease-out;
+      }
+      .gradient-text {
+        background: linear-gradient(135deg, #5D5CDE 0%, #7C3AED 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+      }
+      .loading-spinner {
+        border: 3px solid #f3f4f6;
+        border-top: 3px solid #5D5CDE;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        animation: spin 1s linear infinite;
+      }
+      .loading-spinner-sm {
+        border: 2px solid #e5e7eb;
+        border-top: 2px solid #5D5CDE;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      /* For prose styles from marked.js */
+      .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+        font-weight: 600;
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+      }
+      .prose h2 { font-size: 1.25rem; border-bottom: 1px solid #E5E7EB; padding-bottom: 0.3em; }
+      .dark .prose h2 { border-bottom-color: #374151; }
+      .prose h3 { font-size: 1.1rem; }
+      .prose ul, .prose ol {
+        list-style-position: inside;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        padding-left: 1em;
+      }
+      .prose ul { list-style-type: disc; }
+      .prose ol { list-style-type: decimal; }
+      .prose li { margin-bottom: 0.25em; }
+      .prose strong, .prose b { color: #111827; font-weight: 600; }
+      .dark .prose strong, .dark .prose b { color: #F3F4F6; }
+      .prose em, .prose i { font-style: italic; }
+      .prose p { margin-bottom: 1em; line-height: 1.6; }
+      .prose a { color: #5D5CDE; text-decoration: underline; transition: color 0.2s; }
+      .prose a:hover { color: #7C3AED; }
+
+      /* Custom prose for cards to remove paragraph margins */
+      .prose-card p {
+        margin: 0;
+      }
+
+      .blinking-cursor {
+        display: inline-block;
+        width: 8px;
+        height: 1.2rem;
+        background-color: #5D5CDE;
+        animation: blink 1s step-end infinite;
+        vertical-align: bottom;
+      }
+      @keyframes blink {
+        from, to { background-color: transparent }
+        50% { background-color: #5D5CDE; }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.1",
+    "react/": "https://esm.sh/react@^19.1.1/",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.1/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.12.0",
+    "html-to-image": "https://esm.sh/html-to-image@^1.11.11"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-bg-light dark:bg-bg-dark text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300 font-sans">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+{
+  "name": "Copy of Linux.Do 用户画像分析器",
+  "description": "一个基于Linux.Do论坛公开数据的AI驱动个性分析工具。它使用Gemini API根据用户的活动日志和摘要生成详细的用户画像。",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
